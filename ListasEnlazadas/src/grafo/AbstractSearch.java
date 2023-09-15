@@ -1,8 +1,8 @@
 package grafo;
 
 public abstract class AbstractSearch {
-	private Vertex<?> sourceVertex;
-	private Vertex<?> destinationVertex;
+	protected Vertex<?> sourceVertex;
+	protected Vertex<?> destinationVertex;
 	public AbstractSearch(Vertex<?> sourceVertex, Vertex<?> destinationVertex) {
 		super();
 		this.sourceVertex = sourceVertex;
