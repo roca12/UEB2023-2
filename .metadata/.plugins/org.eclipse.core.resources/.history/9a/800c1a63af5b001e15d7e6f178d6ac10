@@ -1,0 +1,7 @@
+package co.edu.unbosque.entities;
+
+
+@Entity
+public class User {
+
+}

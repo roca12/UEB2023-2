@@ -1,0 +1,17 @@
+package co.edu.unbosque.service;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+
+public class UserDAO {
+	
+	public EntityManagerFactory emf;
+	public EntityManager em;
+	
+	public UserDAO() {
+		public EntityManagerFactory emf = Persistence.createEntityManagerFactory("default");
+		public EntityManager em = emf.createEntityManager();
+		
+	}
+
+}

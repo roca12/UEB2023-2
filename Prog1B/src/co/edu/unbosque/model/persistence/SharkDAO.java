@@ -6,42 +6,54 @@ import co.edu.unbosque.model.SharkDTO;
 
 public class SharkDAO implements CRUDOperation {
 	private ArrayList<SharkDTO> listOfSharks;
-	public final String FILENAME="datostiburon.csv"; 
+	public final String FILENAME = "datostiburon.csv";
+	public final String SERIAL_FILENAME = "tiburon.dat";
 
 	public SharkDAO() {
 		listOfSharks = new ArrayList<>();
-		readFromFile();
+		// ya no carga de texto, ahora carga de serializado
+		// readFromFile();
+		if (FileHandler.serializableOpenAndReadFile(SERIAL_FILENAME) != null) {
+			Object temp = FileHandler.serializableOpenAndReadFile(SERIAL_FILENAME);
+			@SuppressWarnings("unchecked")
+			ArrayList<SharkDTO> temp2 = (ArrayList<SharkDTO>) temp;
+			listOfSharks = temp2;
+		} else {
+			listOfSharks = new ArrayList<>();
+		}
 	}
-	
-	
+
+	public void writeSerializable() {
+		FileHandler.serializableOpenAndWriteFile(SERIAL_FILENAME, listOfSharks);
+	}
+
 	public void readFromFile() {
-		String content=FileHandler.openAndReadFile(FILENAME);
+		String content = FileHandler.openAndReadFile(FILENAME);
 		if (content.isEmpty()) {
 			return;
 		}
-		String [] lines = content.split("\n");
+		String[] lines = content.split("\n");
 		for (int i = 0; i < lines.length; i++) {
-			String[] cols= lines[i].split(";");
+			String[] cols = lines[i].split(";");
 			int id = Integer.parseInt(cols[0]);
 			String name = cols[1];
-			String scientificName=cols[2];
-			boolean saltWater=Boolean.parseBoolean(cols[3]);
-			int numTeeth= Integer.parseInt(cols[4]);
+			String scientificName = cols[2];
+			boolean saltWater = Boolean.parseBoolean(cols[3]);
+			int numTeeth = Integer.parseInt(cols[4]);
 			listOfSharks.add(new SharkDTO(id, name, scientificName, saltWater, numTeeth));
-		}	
+		}
 	}
-	
-	
-	
-	String content="";
+
+	String content = "";
+
 	public void writeFile() {
-		content="";
-		listOfSharks.forEach((shark)->{
-			content+=shark.getId()+";";
-			content+=shark.getName()+";";
-			content+=shark.getScientificName()+";";
-			content+=shark.isInSaltWater()+";";
-			content+=shark.getNumTeeth()+"\n";
+		content = "";
+		listOfSharks.forEach((shark) -> {
+			content += shark.getId() + ";";
+			content += shark.getName() + ";";
+			content += shark.getScientificName() + ";";
+			content += shark.isInSaltWater() + ";";
+			content += shark.getNumTeeth() + "\n";
 		});
 		FileHandler.openAndWriteFile(FILENAME, content);
 	}
@@ -60,6 +72,7 @@ public class SharkDAO implements CRUDOperation {
 		newShark.setNumTeeth(Integer.parseInt(attribs[4]));
 		listOfSharks.add(newShark);
 		writeFile();
+		writeSerializable();
 
 	}
 
@@ -67,6 +80,7 @@ public class SharkDAO implements CRUDOperation {
 	public void create(Object obj) {
 		listOfSharks.add((SharkDTO) obj);
 		writeFile();
+		writeSerializable();
 
 	}
 
@@ -88,28 +102,27 @@ public class SharkDAO implements CRUDOperation {
 		if (index < 0 || index >= listOfSharks.size()) {
 			return false;
 		} else {
-			if (!newData[0].isBlank() || !newData[0].isEmpty() || newData[0] != null || !newData[0].equals("")) {
+			if (!newData[0].isBlank() || !newData[0].isEmpty() || !newData[0].equals("")) {
 				try {
 					listOfSharks.get(index).setId(Integer.parseInt(newData[0]));
 				} catch (NumberFormatException e) {
 
 				}
-
 			}
-			if (!newData[1].isBlank() || !newData[1].isEmpty() || newData[1] != null) {
+			if (!newData[1].isBlank() || !newData[1].isEmpty()) {
 				listOfSharks.get(index).setName(newData[1]);
 			}
-			if (!newData[2].isBlank() || !newData[2].isEmpty() || newData[2] != null) {
+			if (!newData[2].isBlank() || !newData[2].isEmpty()) {
 				listOfSharks.get(index).setScientificName(newData[2]);
 			}
-			if (!newData[3].isBlank() || !newData[3].isEmpty() || newData[3] != null || !newData[3].equals("")) {
+			if (!newData[3].isBlank() || !newData[3].isEmpty() || !newData[3].equals("")) {
 				if (newData[3].contains("yes")) {
 					listOfSharks.get(index).setInSaltWater(true);
 				} else {
 					listOfSharks.get(index).setInSaltWater(false);
 				}
 			}
-			if (!newData[4].isBlank() || !newData[4].isEmpty() || newData[4] != null || !newData[4].equals("")) {
+			if (!newData[4].isBlank() || !newData[4].isEmpty() || !newData[4].equals("")) {
 				try {
 					listOfSharks.get(index).setNumTeeth(Integer.parseInt(newData[4]));
 				} catch (NumberFormatException e) {
@@ -118,6 +131,7 @@ public class SharkDAO implements CRUDOperation {
 
 			}
 			writeFile();
+			writeSerializable();
 			return true;
 		}
 	}
@@ -129,6 +143,7 @@ public class SharkDAO implements CRUDOperation {
 		} else {
 			listOfSharks.remove(index);
 			writeFile();
+			writeSerializable();
 			return true;
 		}
 	}
@@ -139,6 +154,7 @@ public class SharkDAO implements CRUDOperation {
 		if (listOfSharks.contains(toDelete)) {
 			listOfSharks.remove(toDelete);
 			writeFile();
+			writeSerializable();
 			return true;
 		} else {
 			return false;

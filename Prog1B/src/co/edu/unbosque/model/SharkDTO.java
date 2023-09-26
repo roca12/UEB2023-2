@@ -1,7 +1,11 @@
 package co.edu.unbosque.model;
 
-public class SharkDTO extends FishDTO {
+import java.io.Serializable;
 
+public class SharkDTO extends FishDTO implements Serializable{
+
+	
+	private static final long serialVersionUID = -3119576927085681950L;
 	private int numTeeth;
 
 	public SharkDTO() {

@@ -1,0 +1,8 @@
+1695661611015	Rename package 'pruebaJSF'
+1695662710873	Rename resource 'theme.css'
+1695653711398	Rename type 'UserDAO'
+1695653926045	Rename package 'co.edu.unbosque.entities'
+1695653950024	Rename package 'co.edu.unbosque.service'
+1695654116031	Move 'persistence.xml' to 'META-INF'
+1695654601499	Rename type 'UserService'
+1695655586746	Rename type 'AdminBean'

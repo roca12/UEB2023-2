@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;co.edu.unbosque.controller.ControllerServlet&apos; to &apos;UserControllerServlet&apos;&#x0D;&#x0A;- Original project: &apos;webPrj2&apos;&#x0D;&#x0A;- Original element: &apos;co.edu.unbosque.controller.ControllerServlet&apos;&#x0D;&#x0A;- Renamed element: &apos;co.edu.unbosque.controller.UserControllerServlet&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;ControllerServlet&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;co.edu.unbosque.controller{ControllerServlet.java[ControllerServlet" matchStrategy="1" name="UserControllerServlet" qualified="false" references="true" similarDeclarations="false" stamp="1695217862355" textual="false" version="1.0"/>
+</session>

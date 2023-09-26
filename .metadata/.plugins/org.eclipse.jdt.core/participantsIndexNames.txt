@@ -1,0 +1,7 @@
+INDEX VERSION 1.134
+D:\Entornos de desarrollo\New Workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\331337633.index
+\webPrj2\src\main\java
+D:\Entornos de desarrollo\New Workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1613286339.index
+\JSP\src\main\java
+D:\Entornos de desarrollo\New Workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3420573775.index
+\webPrj2\src\main\java

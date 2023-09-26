@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Saludo</title>
+</h:head>
+<h:body>
+	<ui:include src="navbar.xhtml"></ui:include>
+	<div class="layout-wrapper">
+		<h:form>
+			<div class="ui-fluid formgrid grid">
+				<div class="field col-6">
+					<p:outputLabel value="Usuario:" class="form-label" />
+					<p:inputText value="#{AdminBean.nombre}" class="form-control"
+						type="text" placeholder="Usuario" />
+				</div>
+				<div class="field col-6">
+					<p:outputLabel value="Contraseña:" class="form-label" />
+					<p:inputText value="#{AdminBean.contrase}" class="form-control"
+						type="password" placeholder="Contraseña" />
+				</div>
+				<p:commandButton value="Enviar" action="#{AdminBean.validate}"
+					update="output" styleClass="ui-button-success" />
+			</div>
+		</h:form>
+		<h:outputText value="#{AdminBean.saludo}" id="output" />
+	</div>
+</h:body>
+</html>

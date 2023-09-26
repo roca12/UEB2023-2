@@ -1,0 +1,14 @@
+package co.edu.unbosque.service;
+
+public class UserDAO {
+	
+	public EntityManagerFactory emf;
+	public EntityManager em;
+	
+	public UserDAO() {
+		public EntityManagerFactory emf = Persistence.createEntityManagerFactory("default");
+		public EntityManager em = emf.createEntityManager();
+		
+	}
+
+}

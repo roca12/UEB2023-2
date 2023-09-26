@@ -1,0 +1,13 @@
+package co.edu.unbosque.entities;
+
+
+@Entity
+public class User {
+	
+	@Id
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	private long id;
+	@Column (name="username",nullable=false)
+	private String username;
+	
+}

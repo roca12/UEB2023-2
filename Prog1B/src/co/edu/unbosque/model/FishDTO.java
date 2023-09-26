@@ -1,7 +1,10 @@
 package co.edu.unbosque.model;
 
-public abstract class FishDTO {
-	
+import java.io.Serializable;
+
+public abstract class FishDTO implements Serializable{
+
+	private static final long serialVersionUID = 117705942636079448L;
 	private int id;
 	private String name;
 	private String scientificName;
