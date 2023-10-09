@@ -1,4 +1,5 @@
-package co.edu.unbosque.SpringFirstApp;
+package co.edu.unbosque.springfirstapp;
+
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;

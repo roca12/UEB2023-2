@@ -1,4 +1,5 @@
-package co.edu.unbosque.SpringFirstApp;
+package co.edu.unbosque.springfirstapp;
+
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

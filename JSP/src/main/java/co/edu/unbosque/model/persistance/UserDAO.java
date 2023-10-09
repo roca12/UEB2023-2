@@ -12,16 +12,18 @@ public class UserDAO {
 		userList = new ArrayList<User>();
 		userList.add(new User("admin", "1234"));
 	}
-
+	boolean res=false;
 	public boolean validate(User login) {
-		for (User u : userList) {
-			if (u.getName().equals(login.getName())) {
-				if (u.getPassword().equals(login.getPassword())) {
-					return true;
+		res=false;
+		userList.forEach((user)->{
+			if (user.getName().equals(login.getName())) {
+				if (user.getPassword().equals(login.getPassword())) {
+					res=true;
 				}
 			}
-		}
-		return false;
+	
+		});
+		return res;
 
 	}
 
