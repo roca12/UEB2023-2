@@ -1,0 +1,26 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:form>
+		<p:growl id="messages" />
+
+		<p:menubar>
+			<p:submenu label="File" icon="pi pi-fw pi-file">
+				<p:submenu label="New" icon="pi pi-fw pi-plus">
+					<p:menuitem value="Bookmark" icon="pi pi-fw pi-bookmark" />
+					<p:menuitem value="Video" icon="pi pi-fw pi-video" />
+				</p:submenu>
+				<p:menuitem value="Delete" icon="pi pi-fw pi-trash" />
+				<p:divider />
+				<p:menuitem value="Export" icon="pi pi-fw pi-external-link" />
+			</p:submenu>
+
+			<p:divider layout="vertical" />
+			<p:menuitem value="Quit" icon="pi pi-fw pi-power-off" />
+
+		</p:menubar>
+	</h:form>
+</ui:composition>
