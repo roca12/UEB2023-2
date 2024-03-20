@@ -1,0 +1,6 @@
+faltan validaciones en entrada
+comentarear todo
+archivos para departamento
+javadoc
+diagrama de clases
+propiedades
