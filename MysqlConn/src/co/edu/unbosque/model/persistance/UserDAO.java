@@ -18,7 +18,7 @@ public class UserDAO implements CRUDOperation {
 	@Override
 	public void create(String... args) {
 		try {
-			dbcon.getPreparedStatement().executeUpdate();
+			
 
 			dbcon.setPreparedStatement(dbcon.getConnect()
 					.prepareStatement("insert into  feedback.comments values (default, ?, ?, ?, ? , ?, ?)"));
@@ -28,6 +28,7 @@ public class UserDAO implements CRUDOperation {
 			dbcon.getPreparedStatement().setDate(4, new Date(2009, 12, 11));
 			dbcon.getPreparedStatement().setString(5, "TestSummary");
 			dbcon.getPreparedStatement().setString(6, "TestComment");
+			dbcon.getPreparedStatement().executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -47,7 +48,7 @@ public class UserDAO implements CRUDOperation {
 				String user = dbcon.getResultSet().getString("user");
 				String password = dbcon.getResultSet().getString("password");
 				usersList.add(new UserDTO(user, password));
-			}
+			} 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
