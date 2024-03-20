@@ -15,19 +15,19 @@ import java.security.NoSuchAlgorithmException;
 
 public class AESUtil {
 
-	private final static String algoritmo = "AES";
+	private final static String ALGORITMO = "AES";
 
-	private final static String tipoCifrado = "AES/CBC/PKCS5Padding";
+	private final static String TIPOCIFRADO = "AES/CBC/PKCS5Padding";
 
 	public static String encrypt(String llave, String iv, String texto) {
 		Cipher cipher = null;
 		try {
-			cipher = Cipher.getInstance(tipoCifrado);
+			cipher = Cipher.getInstance(TIPOCIFRADO);
 		} catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
 			e.printStackTrace();
 		}
 
-		SecretKeySpec secretKeySpec = new SecretKeySpec(llave.getBytes(), algoritmo);
+		SecretKeySpec secretKeySpec = new SecretKeySpec(llave.getBytes(), ALGORITMO);
 		IvParameterSpec ivParameterSpec = new IvParameterSpec(iv.getBytes());
 		try {
 			cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, ivParameterSpec);
@@ -48,14 +48,13 @@ public class AESUtil {
 	public static String decrypt(String llave, String iv, String encrypted) {
 		Cipher cipher = null;
 		try {
-			cipher = Cipher.getInstance(tipoCifrado);
+			cipher = Cipher.getInstance(TIPOCIFRADO);
 		} catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
 			e.printStackTrace();
 		}
 
-		SecretKeySpec secretKeySpec = new SecretKeySpec(llave.getBytes(), algoritmo);
+		SecretKeySpec secretKeySpec = new SecretKeySpec(llave.getBytes(), ALGORITMO);
 		IvParameterSpec ivParameterSpec = new IvParameterSpec(iv.getBytes());
-		byte[] enc = decodeBase64(encrypted);
 		try {
 			cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec);
 		} catch (InvalidKeyException | InvalidAlgorithmParameterException e) {
@@ -63,6 +62,7 @@ public class AESUtil {
 			e.printStackTrace();
 		}
 
+		byte[] enc = decodeBase64(encrypted);
 		byte[] decrypted = null;
 		try {
 			decrypted = cipher.doFinal(enc);
