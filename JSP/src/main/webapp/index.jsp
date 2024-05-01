@@ -1,3 +1,4 @@
+<%@page import="java.io.Writer"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="java.util.Date"%>
@@ -29,17 +30,18 @@
 
 </head>
 <body>
+	<%@ include file="navbar.jsp"%>
 	<%-- anything but a closing tag here will be ignored --%>
 	<!-- HTML comments hereMath.random()m() %> more comments -->
 
 
 	<form action="UserControllerServlet" method="post">
-		Name:<input type="text" name="name"><br> 
-		Password:<input type="password" name="password"><br> 
-		<input type="submit" value="login">
+		Name:<input type="text" name="name"> <br> Password:<input
+			type="password" name="password"> <br> <input
+			type="submit" value="login">
 	</form>
 
-	<form action="ControllerServlet" method="get">
+	<form action="UserControllerServlet" method="get">
 		<br> <input type="submit" value="Get list">
 	</form>
 

@@ -86,7 +86,8 @@
 					
 					        <div>
 					            <p:outputLabel for="newUsername" class="block text-900 font-medium mb-2" value="Nuevo Username"/>
-					            <p:inputText id="newUsername" styleClass="w-full mb-3" placeholder="Username" required="true"/>
+					            <p:inputText id="newUsername" styleClass="w-full mb-3" placeholder="Username" required="true"
+					            value="#{AdminBean.newUsername}"/>
 					                                   
 		                        <p:outputLabel for="newPassword" class="block text-900 font-medium mb-2" value="Nuevo Password"/>
 		                        <p:password id="newPassword"  styleClass="w-full mb-3" 
@@ -116,6 +117,7 @@
 					            icon="pi pi-user-plus" 
 					            styleClass="w-full ui-button-help"
 					            update="createform"
+					            action="#{AdminBean.crearUsuario}"
 					            
 					            />
 					            

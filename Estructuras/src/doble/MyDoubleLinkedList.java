@@ -26,6 +26,15 @@ public class MyDoubleLinkedList<E>{
 			}
 		}
 	}
+	public void back(int numPositions) {
+		if (numPositions <= 0 || head == null || currentPosition == null)
+			return;
+		int positionsBack = numPositions;
+		while (currentPosition != null && positionsBack > 0) {
+			currentPosition = currentPosition.getPrevious();
+			positionsBack--;
+		}
+	}
 
 	
 	public void insert(E data) {
@@ -85,15 +94,7 @@ public class MyDoubleLinkedList<E>{
 		return sb.toString();
 	}
 
-	public void back(int numPositions) {
-		if (numPositions <= 0 || head == null || currentPosition == null)
-			return;
-		int positionsBack = numPositions;
-		while (currentPosition != null && positionsBack > 0) {
-			currentPosition = currentPosition.getPrevious();
-			positionsBack--;
-		}
-	}
+	
 
 	public DNode<E> getHead() {
 		return head;

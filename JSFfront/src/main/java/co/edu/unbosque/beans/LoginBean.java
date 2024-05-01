@@ -1,6 +1,7 @@
 package co.edu.unbosque.beans;
 
-
+import co.edu.unbosque.service.UserService;
+import co.edu.unbosque.util.AESUtil;
 import jakarta.annotation.ManagedBean;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.application.FacesMessage;
@@ -13,11 +14,11 @@ public class LoginBean {
 	private String saludo = "";
 	private String nombre = "";
 	private String contrase = "";
-	
-	private String newUsername="";
-	private String newPass1="";
-	private String newPass2="";
-	
+
+	private String newUsername = "";
+	private String newPass1 = "";
+	private String newPass2 = "";
+
 	public LoginBean() {
 		// TODO Auto-generated constructor stub
 	}
@@ -77,18 +78,47 @@ public class LoginBean {
 	}
 
 	public void showSticky() {
-		FacesContext.getCurrentInstance().addMessage("sticky-key",new FacesMessage(
-				FacesMessage.SEVERITY_INFO, 
-				"Sticky Message", 
-				"Message Content")
-		);
+		FacesContext.getCurrentInstance().addMessage("sticky-key",
+				new FacesMessage(FacesMessage.SEVERITY_INFO, "Sticky Message", "Message Content"));
+	}
+
+	public void showSticky(String code, String content) {
+		if (code.equals("201")) {
+			FacesContext.getCurrentInstance().addMessage("sticky-key",
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Hecho", content));
+		}else if (code.equals("406")) {
+			FacesContext.getCurrentInstance().addMessage("sticky-key",
+					new FacesMessage(FacesMessage.SEVERITY_WARN, "Error", content));
+		}else{
+			System.out.println("Error en crear cuenta");
+			System.out.println("Status code: "+code);
+			System.out.println("reason: "+content);
+			FacesContext.getCurrentInstance().addMessage("sticky-key",
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error Critico", "Error al crear,"
+							+ "comuniquese con el administrador"));
+		}
+	}
+
+	public void crearUsuario() {
+		newUsername=AESUtil.encrypt(newUsername);
+		newPass1=AESUtil.encrypt(newPass1);
+		String json = "{";
+		json += "\"username\" : \"" + newUsername + "\",";
+		json += "\"password\" : \"" + newPass1 + "\"";
+		json += "}";
+		String respuesta = UserService.doPost("http://localhost:8082/user/createjson", json);
+		String[] data = respuesta.split("\n");
+		showSticky(data[0], data[1]);
+		newUsername="";
+		newPass1="";
+		newPass2="";
 	}
 
 	public void validate() {
 		showSticky();
 	}
-	
+
 	public void matchPasswords() {
-		
+
 	}
 }

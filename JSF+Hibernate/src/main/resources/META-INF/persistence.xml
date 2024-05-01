@@ -10,19 +10,19 @@
 			<property name="jakarta.persistence.jdbc.driver"
 				value="com.mysql.cj.jdbc.Driver" />
 			<property name="jakarta.persistence.jdbc.url"
-				value="jdbc:mysql://35.239.57.35:3306/rodriguezDiego" />
+				value="jdbc:mysql://34.174.182.115:3306/rodriguezDiego" />
 			<property name="jakarta.persistence.jdbc.user" value="root" />
 			<property name="jakarta.persistence.jdbc.password"
-				value="programacion2" />
-			<!-- solo para creacion inicial 
-			<property name="jakarta.persistence.schema-generation.database.action" 
-				value="create" /> 
-				conn name :seismic-elf-400316:us-central1:bdprog2 -->
-			<!-- Ya para uso normal -->
+				value="universidadelbosque2024" />
+			<!-- solo para creacion inicial -->
 			<property
 				name="jakarta.persistence.schema-generation.database.action"
-				value="none" />
+				value="create" />
 
+			<!-- Ya para uso normal <property name="jakarta.persistence.schema-generation.database.action" 
+				value="none" /> -->
+			<property name="hibernate.dialect"
+				value="org.hibernate.dialect.MySQLInnoDBDialect" />
 		</properties>
 	</persistence-unit>
 </persistence>

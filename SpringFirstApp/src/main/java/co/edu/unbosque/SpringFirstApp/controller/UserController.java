@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import co.edu.unbosque.springfirstapp.model.User;
 import co.edu.unbosque.springfirstapp.service.UserService;
+import co.edu.unbosque.springfirstapp.util.AESUtil;
 
 @RestController
 @RequestMapping("/user")
@@ -51,10 +52,24 @@ public class UserController {
 		int status = userServ.create(newUser);
 
 		if (status == 0) {
-			return new ResponseEntity<>("{User create successfully}", HttpStatus.CREATED);
+			return new ResponseEntity<>("User create successfully", HttpStatus.CREATED);
 		} else {
-			return new ResponseEntity<>("{Error on created user, maybe username already in use}",
+			return new ResponseEntity<>("Error on created user, maybe username already in use",
 					HttpStatus.NOT_ACCEPTABLE);
+		}
+	}
+	
+	@PostMapping(path = "/checklogin")
+	ResponseEntity<String> checkLogIn(@RequestParam String username, @RequestParam String password) {
+		
+		
+		int status = userServ.validateCredentials(username,password);
+
+		if (status == 0) {
+			return new ResponseEntity<>("Correct credendials", HttpStatus.ACCEPTED);
+		} else {
+			return new ResponseEntity<>("Username or password incorrect",
+					HttpStatus.UNAUTHORIZED);
 		}
 	}
 

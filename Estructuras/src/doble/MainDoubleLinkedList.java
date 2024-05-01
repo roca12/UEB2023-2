@@ -1,10 +1,14 @@
-package doble;
+ package doble;
+
+import java.util.LinkedList;
 
 public class MainDoubleLinkedList {
 
 	
 	public static void main(String[] args) {
 		MyDoubleLinkedList<String> list = new MyDoubleLinkedList<>();
+		LinkedList<String > l = new LinkedList<>();
+		l.addFirst(null);
 		
 		list.insert("Node1");
 		list.insert("Node2");

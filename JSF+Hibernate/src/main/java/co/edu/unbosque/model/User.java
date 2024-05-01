@@ -10,17 +10,17 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "usertable")
 public class User {
-	
+
 	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	@Column (name="username",nullable=false)
+	@Column(name = "username", nullable = false)
 	private String username;
-	@Column (name="passkey",nullable=false)
+	@Column(name = "passkey", nullable = false)
 	private String passkey;
-	
+
 	public User() {
-		
+
 	}
 
 	public User(String username, String passkey) {
@@ -51,9 +51,5 @@ public class User {
 	public void setPasskey(String passkey) {
 		this.passkey = passkey;
 	}
-	
-	
-	
-	
-	
+
 }

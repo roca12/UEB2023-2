@@ -18,16 +18,63 @@ public class HttpClientSynchronous {
 			.connectTimeout(Duration.ofSeconds(10)).build();
 
 	public static void main(String[] args) throws IOException, InterruptedException {
-		System.out.println("//// POST ////");
-		System.out.println(doPost("https://httpbin.org/post", "{\"name\":\"mkyong\",\"notes\":\"hello\"}"));
 		System.out.println("//// GET ////");
-		System.out.println(doGet("https://httpbin.org/get"));
-		System.out.println("//// PUT ////");
-		System.out.println(doPut("https://httpbin.org/put", "{\"name\":\"mkyong\",\"notes\":\"hello\"}"));
-		System.out.println("//// DELETE ////");
-		System.out.println(doDelete("https://httpbin.org/delete"));
+		String geolocation="https://ipgeolocation.abstractapi.com/v1/?";
+		geolocation+="api_key=d8706a8e487c4b608c26e64aa216e16a";
+		System.out.println(doGetAndParse(geolocation));
+//		System.out.println("//// GET ////");
+//		System.out.println(doGetWithHeaders("https://www.virustotal.com/api/v3/analyses/YTc4NmY3MzVjYzE5MTk2NjhmOGNkMWI1OGU1OTRmNDE6MTcxMzc4OTM3Ng=="));
+//		
+		//System.out.println("//// POST ////");
+		//System.out.println(doPost("https://httpbin.org/post", "{\"name\":\"mkyong\",\"notes\":\"hello\"}"));
+//		System.out.println("//// GET ////");
+//		System.out.println(doGet("http://localhost:8082/user/getall"));
+		//System.out.println("//// PUT ////");
+		//System.out.println(doPut("https://httpbin.org/put", "{\"name\":\"mkyong\",\"notes\":\"hello\"}"));
+		//System.out.println("//// DELETE ////");
+		//System.out.println(doDelete("https://httpbin.org/delete"));
 	}
+	
+	public static String doGetAndParse(String url) {
+		HttpRequest request = HttpRequest.newBuilder().GET().uri(URI.create(url))
+				.setHeader("User-Agent", "Java 11 HttpClient Bot").build();
 
+		HttpResponse<String> response = null;
+		try {
+			response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		System.out.println("status code -> " + response.statusCode());
+
+		String uglyJson = response.body();
+		return prettyPrintUsingGson(uglyJson);
+	}
+	
+	public static String doGetWithHeaders(String url) {
+		HttpRequest request = HttpRequest.newBuilder().GET().uri(URI.create(url))
+				.setHeader("X-Apikey", "b022b08d83bbbfd856d2f1e6080a08cc93a24c38db6537639d2c0b5bd84c0701")
+				.build();
+
+		HttpResponse<String> response = null;
+		try {
+			response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		System.out.println("status code -> " + response.statusCode());
+
+		String uglyJson = response.body();
+		Gson json = new Gson();
+		return prettyPrintUsingGson(uglyJson);
+	}
+	
 	public static String doGet(String url) {
 		HttpRequest request = HttpRequest.newBuilder().GET().uri(URI.create(url))
 				.setHeader("User-Agent", "Java 11 HttpClient Bot").build();

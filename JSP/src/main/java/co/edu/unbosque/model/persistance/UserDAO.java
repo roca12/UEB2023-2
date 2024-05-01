@@ -2,18 +2,18 @@ package co.edu.unbosque.model.persistance;
 
 import java.util.ArrayList;
 
-import co.edu.unbosque.model.User;
+import co.edu.unbosque.model.UserDTO;
 
 public class UserDAO {
 
-	private ArrayList<User> userList;
+	private ArrayList<UserDTO> userList;
 
 	public UserDAO() {
-		userList = new ArrayList<User>();
-		userList.add(new User("admin", "1234"));
+		userList = new ArrayList<UserDTO>();
+		userList.add(new UserDTO("admin", "1234"));
 	}
 	boolean res=false;
-	public boolean validate(User login) {
+	public boolean validate(UserDTO login) {
 		res=false;
 		userList.forEach((user)->{
 			if (user.getName().equals(login.getName())) {
@@ -27,11 +27,11 @@ public class UserDAO {
 
 	}
 
-	public ArrayList<User> getUserList() {
+	public ArrayList<UserDTO> getUserList() {
 		return userList;
 	}
 
-	public void setUserList(ArrayList<User> userList) {
+	public void setUserList(ArrayList<UserDTO> userList) {
 		this.userList = userList;
 	}
 

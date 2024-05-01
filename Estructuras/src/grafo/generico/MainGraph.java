@@ -93,6 +93,8 @@ public class MainGraph {
 	}
 
 	public static void main(String[] args) {
+		int a = 0;
+		boolean x = (a&1)==0?true:false;
 		doGraph1();
 		System.out.println("---------------------------------");
 		doGraph2();

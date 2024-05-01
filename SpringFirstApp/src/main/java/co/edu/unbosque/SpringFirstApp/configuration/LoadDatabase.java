@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 import co.edu.unbosque.springfirstapp.model.User;
 import co.edu.unbosque.springfirstapp.repository.UserRepository;
+import co.edu.unbosque.springfirstapp.util.AESUtil;
 
 @Configuration
 public class LoadDatabase {
@@ -19,11 +20,11 @@ public class LoadDatabase {
 	CommandLineRunner initDatabase(UserRepository userRepo) {
 
 		return args -> {
-			Optional<User> found = userRepo.findByUsername("admin");
+			Optional<User> found = userRepo.findByUsername(AESUtil.encrypt("admin"));
 			if (found.isPresent()) {
 				log.info("Admin already exists,  skipping admin creating  ...");
 			} else {
-				userRepo.save(new User("admin", "1234567890"));
+				userRepo.save(new User(AESUtil.encrypt("admin"), AESUtil.encrypt("1234567890")));
 				log.info("Preloading admin user");
 			}
 		};

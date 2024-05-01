@@ -1,64 +1,116 @@
 package co.edu.unbosque.model.persistence;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class FileHandler {
-
+	// texto
 	private static Scanner fileReader;
 	private static PrintWriter fileWriter;
 	private static File myFile;
+
+	// serializados
+	// lectura de serializados
+	private static FileInputStream fis;
+	private static ObjectInputStream ois;
+	
+	// escritura de serializados;
+	private static FileOutputStream fos;
+	private static ObjectOutputStream oos;
 
 	public FileHandler() {
 
 	}
 
-	public static String openAndReadFile(String url) {
-
-		myFile = new File(url);
-
+	public static Object serializableOpenAndReadFile(String fileName) {
 		try {
-			fileReader = new Scanner(myFile);
+			fis = new FileInputStream(new File("src/co/edu/unbosque/model/persistence/" + fileName));
 		} catch (FileNotFoundException e) {
 			try {
-				myFile.createNewFile();
+				System.out.println("Archvio serializado no encontrado, creandolo ahora mismo");
+				File temp = new File("src/co/edu/unbosque/model/persistence/" + fileName);
+				temp.createNewFile();
+				fis = new FileInputStream(new File("src/co/edu/unbosque/model/persistence/" + fileName));
 			} catch (IOException e1) {
-
-				System.out.println("No tengo permisos de escritura");
+				System.out.println("error el serializado no pudo ser creado");
+				e1.printStackTrace();
 			}
-			System.out.println("El archivo no existia, ha sido creado");
 		}
-		String content = "";
-		while (fileReader.hasNext()) {
-			content += fileReader.nextLine() + "\n";
+		Object content = null;
+		try {
+			ois = new ObjectInputStream(fis);
+			content = ois.readObject();
+			ois.close();
+		} catch (IOException e) {
+			System.out.println("No se pudo leer en el archivo serializado (input)");
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			System.out.println("error al obtener el contenido");
+			e.printStackTrace();
 		}
 		return content;
 	}
 
-	public static void openAndWriteFile(String url, String content) {
+	public static void serializableOpenAndWriteFile(String fileName, Object content) {
+		
+		try {
+			fos = new FileOutputStream(new File("src/co/edu/unbosque/model/persistence/" + fileName));
+		} catch (FileNotFoundException e) {
+			File temp = new File("src/co/edu/unbosque/model/persistence/" + fileName);
+			try {
+				fos = new FileOutputStream(temp);
+			} catch (FileNotFoundException e1) {
+				System.out.println("problemas al crear o buscar el archivo serializado (escritura)");
+				e1.printStackTrace();
+			}
+		}
+		try {
+			oos= new ObjectOutputStream(fos);
+			oos.writeObject(content);
+			oos.close();
+		} catch (IOException e) {
+			System.out.println("problemas al abrir el archivo serializado (escritura)");
+			e.printStackTrace();
+		}
+	}
 
-		myFile = new File(url);
-
+	public static String openAndReadFile(String url) {
+		myFile = new File("src/co/edu/unbosque/model/persistence/" + url);
+		String contenido = "";
 		try {
 			if (!myFile.exists()) {
+				myFile.createNewFile();
+			}
+			fileReader = new Scanner(myFile);
+			while (fileReader.hasNext()) {
+				contenido += fileReader.nextLine();
+			}
+			fileReader.close();
+		} catch (IOException e) {
+			System.out.println("Problema al crear el archivo, revise problemas de acceso.");
+		}
+		return contenido;
+	}
 
+	public static void openAndWriteFile(String url, String contentToWrite) {
+		myFile = new File("src/co/edu/unbosque/model/persistence/" + url);
+		myFile.delete();
+		try {
+			if (!myFile.exists()) {
 				myFile.createNewFile();
 			}
 			fileWriter = new PrintWriter(myFile);
-			fileWriter.write(content);
+			fileWriter.write(contentToWrite);
 			fileWriter.close();
-			//System.out.println(myFile.length());
-		} catch (FileNotFoundException e) {
-
-			System.out.println("No encontre el archivo");
 		} catch (IOException e) {
-
-			System.out.println("No tengo permisos");
+			System.out.println("Problema al crear el archivo, revise problemas de acceso.");
 		}
-
 	}
-
 }

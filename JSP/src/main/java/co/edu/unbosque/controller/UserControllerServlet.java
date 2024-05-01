@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import co.edu.unbosque.model.User;
+import co.edu.unbosque.model.UserDTO;
 import co.edu.unbosque.model.persistance.UserDAO;
 
 public class UserControllerServlet extends HttpServlet {
@@ -29,7 +29,7 @@ public class UserControllerServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
-		for (User u : uDao.getUserList()) {
+		for (UserDTO u : uDao.getUserList()) {
 			out.write(u.toString());
 		}
 		
@@ -54,7 +54,7 @@ public class UserControllerServlet extends HttpServlet {
 		log(name);
 		log(password);
 		
-		User temp = new User();
+		UserDTO temp = new UserDTO();
 		temp.setName(name);
 		temp.setPassword(password);
 		

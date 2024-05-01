@@ -4,9 +4,9 @@ public class Edge {
 	private Vertex<?> source;
 	private Vertex<?> destination;
 	private double value;
-	
+
 	public Edge() {
-		
+
 	}
 
 	public Edge(Vertex<?> source, Vertex<?> destination, double value) {
@@ -15,8 +15,6 @@ public class Edge {
 		this.destination = destination;
 		this.value = value;
 	}
-
-
 
 	public Vertex<?> getSource() {
 		return source;
@@ -44,12 +42,8 @@ public class Edge {
 
 	@Override
 	public String toString() {
-		return "\n\tEdge [source=" + source.getInfo() + 
-				", destination=" + destination.getInfo() + 
-				", value=" + value + "]";
+		return "\n\tEdge [source=" + source.getInfo() + ", destination=" + destination.getInfo() + ", value=" + value
+				+ "]";
 	}
-	
-	
-	
 
 }

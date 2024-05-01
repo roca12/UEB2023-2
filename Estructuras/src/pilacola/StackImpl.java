@@ -1,5 +1,8 @@
 package pilacola;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 import doble.MyDequeList;
 
 public class StackImpl<E> implements Stack<E> {
@@ -7,6 +10,7 @@ public class StackImpl<E> implements Stack<E> {
 
 	public StackImpl() {
 		data = new MyDequeList<E>();
+		Queue<String > q = new LinkedList<String>();
 	}
 
 	@Override
@@ -23,7 +27,6 @@ public class StackImpl<E> implements Stack<E> {
 	public int size() {
 		return data.size();
 	}
-
 	@Override
 	public String toString() {
 		return data.toString();

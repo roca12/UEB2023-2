@@ -3,15 +3,15 @@ package simple;
 public class MainLinkedList {
 	public static void main(String[] args) {
 
-		MyLinkedList<Student> linkedlist = new MyLinkedList<>();
+		MyLinkedList<Integer> linkedlist = new MyLinkedList<>();
 
-		linkedlist.addLast(new Student("diego", 11));
-		linkedlist.addLast(new Student("diego", 12));
-		linkedlist.addLast(new Student("diego", 13));
-		linkedlist.addLast(new Student("diego", 14));
-		linkedlist.addLast(new Student("diego", 15));
-		linkedlist.add(new Student("diego", 16));
-
+		linkedlist.addLast(11);
+		linkedlist.addLast(12);
+		linkedlist.addLast(13);
+		linkedlist.addLast(20);
+		linkedlist.addLast(15);
+		linkedlist.add(16);
+		linkedlist.addLast(15);
 		System.out.println(linkedlist.print());
 	}
 }

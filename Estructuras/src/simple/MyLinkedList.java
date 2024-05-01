@@ -39,9 +39,10 @@ public class MyLinkedList<E> {
 			insert(info, lastNode);
 		} else {
 			this.first = new Node<E>(info);
-			;
+			
 		}
 	}
+	
 	
 	
 
@@ -116,7 +117,7 @@ public class MyLinkedList<E> {
 		return current;
 	}
 
-	public int get2(E info) {
+	public int indexOf(E info) {
 		Node<E> current = this.first;
 		int infoPosition = -1;
 
@@ -174,7 +175,7 @@ public class MyLinkedList<E> {
 			while (current != null) {
 				sb.append( current.getInfo().toString());
 				if (current.getNext() != null) {
-					sb = sb.append(" -> ");
+					sb.append(" -> ");
 				}
 				current = current.getNext();
 			}

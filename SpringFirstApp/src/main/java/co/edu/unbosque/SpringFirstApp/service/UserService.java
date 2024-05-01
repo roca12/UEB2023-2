@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import co.edu.unbosque.springfirstapp.model.User;
 import co.edu.unbosque.springfirstapp.repository.UserRepository;
+import co.edu.unbosque.springfirstapp.util.AESUtil;
 
 @Service
 public class UserService implements CRUDOperation<User> {
@@ -54,7 +55,7 @@ public class UserService implements CRUDOperation<User> {
 			return 1;
 		}
 	}
-	
+
 	public int deleteByUsername(String username) {
 		Optional<User> found = userRepo.findByUsername(username);
 		if (found.isPresent()) {
@@ -68,18 +69,19 @@ public class UserService implements CRUDOperation<User> {
 	@Override
 	public int updateById(Long id, User newData) {
 		Optional<User> found = userRepo.findById(id);
-		Optional<User> newFound=userRepo.findByUsername(newData.getUsername());
-		
-		
-		if (found.isPresent()&&!newFound.isPresent()) {
+		Optional<User> newFound = userRepo.findByUsername(newData.getUsername());
+
+		if (found.isPresent() && !newFound.isPresent()) {
 			User temp = found.get();
 			temp.setUsername(newData.getUsername());
 			temp.setPassword(newData.getPassword());
 			userRepo.save(temp);
 			return 0;
-		} if (found.isPresent()&&newFound.isPresent()) {
+		}
+		if (found.isPresent() && newFound.isPresent()) {
 			return 1;
-		} if (!found.isPresent()) {
+		}
+		if (!found.isPresent()) {
 			return 2;
 		} else {
 			return 3;
@@ -90,7 +92,7 @@ public class UserService implements CRUDOperation<User> {
 		Optional<User> found = userRepo.findById(id);
 		if (found.isPresent()) {
 			return found.get();
-		}else {
+		} else {
 			return null;
 		}
 	}
@@ -102,6 +104,23 @@ public class UserService implements CRUDOperation<User> {
 		} else {
 			return false;
 		}
+	}
+
+	public int validateCredentials(String username, String password) {
+		// encriptado del front
+		//username = AESUtil.decrypt("keyfrontfirstenc", "iviviviviviviviv", username);
+		//password = AESUtil.decrypt("keyfrontfirstenc", "iviviviviviviviv", password);
+		// a encriptrado del back
+		username = AESUtil.encrypt(username);
+		password = AESUtil.encrypt(password);
+		for (User u : getAll()) {
+			if (u.getUsername().equals(username)) {
+				if (u.getPassword().equals(password)) {
+					return 0;
+				}
+			}
+		}
+		return 1;
 	}
 
 }
