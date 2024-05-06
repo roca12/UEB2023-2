@@ -1,5 +1,9 @@
 package co.edu.unbosque.beans;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import co.edu.unbosque.model.User;
 import co.edu.unbosque.service.UserService;
 import co.edu.unbosque.util.AESUtil;
 import jakarta.annotation.ManagedBean;
@@ -19,8 +23,10 @@ public class LoginBean {
 	private String newPass1 = "";
 	private String newPass2 = "";
 
+	private List<User> listUsers = new ArrayList<>();
+
 	public LoginBean() {
-		// TODO Auto-generated constructor stub
+		cargarUsuarios();
 	}
 
 	// https://mkyong.com/java/how-to-send-http-request-getpost-in-java/
@@ -82,36 +88,47 @@ public class LoginBean {
 				new FacesMessage(FacesMessage.SEVERITY_INFO, "Sticky Message", "Message Content"));
 	}
 
-	public void showSticky(String code, String content) {
+	public void cargarUsuarios() {
+		listUsers = UserService.doGetAll("http://localhost:8080/user/getall");
+	}
+
+	public void showStickyLogin(String code, String content) {
 		if (code.equals("201")) {
 			FacesContext.getCurrentInstance().addMessage("sticky-key",
 					new FacesMessage(FacesMessage.SEVERITY_INFO, "Hecho", content));
-		}else if (code.equals("406")) {
+		} else if (code.equals("406")) {
 			FacesContext.getCurrentInstance().addMessage("sticky-key",
 					new FacesMessage(FacesMessage.SEVERITY_WARN, "Error", content));
-		}else{
+		} else {
 			System.out.println("Error en crear cuenta");
-			System.out.println("Status code: "+code);
-			System.out.println("reason: "+content);
-			FacesContext.getCurrentInstance().addMessage("sticky-key",
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error Critico", "Error al crear,"
-							+ "comuniquese con el administrador"));
+			System.out.println("Status code: " + code);
+			System.out.println("reason: " + content);
+			FacesContext.getCurrentInstance().addMessage("sticky-key", new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Error Critico", "Error al crear," + "comuniquese con el administrador"));
 		}
 	}
 
+	public List<User> getListUsers() {
+		return listUsers;
+	}
+
+	public void setListUsers(List<User> listUsers) {
+		this.listUsers = listUsers;
+	}
+
 	public void crearUsuario() {
-		newUsername=AESUtil.encrypt(newUsername);
-		newPass1=AESUtil.encrypt(newPass1);
+		newUsername = AESUtil.encrypt(newUsername);
+		newPass1 = AESUtil.encrypt(newPass1);
 		String json = "{";
 		json += "\"username\" : \"" + newUsername + "\",";
 		json += "\"password\" : \"" + newPass1 + "\"";
 		json += "}";
 		String respuesta = UserService.doPost("http://localhost:8082/user/createjson", json);
 		String[] data = respuesta.split("\n");
-		showSticky(data[0], data[1]);
-		newUsername="";
-		newPass1="";
-		newPass2="";
+		showStickyLogin(data[0], data[1]);
+		newUsername = "";
+		newPass1 = "";
+		newPass2 = "";
 	}
 
 	public void validate() {
